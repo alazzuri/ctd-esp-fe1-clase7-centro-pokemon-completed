@@ -1,6 +1,22 @@
 import React, { useContext } from "react";
 import { ContextoFormulario } from "../../context/ContextoFormulario";
 
+// Esta función se encarga de enviar el formulario al servidor.
+const enviarFormulario = async (data) => {
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (response.ok) {
+    alert("Solicitud enviada :)");
+    return await response.json();
+  }
+};
+
 /**
  * Componente que muestra el detalle del formulario, con
  * la informde cada uno de los campos que han sido completados.
@@ -45,7 +61,7 @@ const Detalle = () => {
       </section>
       <button
         className="boton-enviar"
-        onClick={() => alert("Solicitud enviada :)")}
+        onClick={() => enviarFormulario(formulario)}
       >
         Enviar Solicitud
       </button>
